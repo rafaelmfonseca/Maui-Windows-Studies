@@ -2,12 +2,20 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Maui_Windows_Studies.Views.AllNotesPage"
-             Title="AllNotes">
+             xmlns:viewModels="clr-namespace:Maui_Windows_Studies.ViewModels"
+             Title="AllNotes"
+             NavigatedTo="ContentPage_NavigatedTo">
+    <ContentPage.BindingContext>
+        <viewModels:NotesViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" IconImageSource="{FontImage Glyph='+', Color=Black, Size=22}" Clicked="ToolbarItem_Clicked"></ToolbarItem>
+        <ToolbarItem Text="Add" Command="{Binding NewCommand}" IconImageSource="{FontImage Glyph='+', Color=Black, Size=22}"></ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <CollectionView ItemsSource="{Binding Notes}" Margin="20" SelectionMode="Single" SelectionChanged="CollectionView_SelectionChanged">
+    <CollectionView ItemsSource="{Binding AllNotes}" Margin="20" SelectionMode="Single"
+                    x:Name="notesCollection"
+                    SelectionChangedCommand="{Binding SelectCommand}"
+                    SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem}">
         <CollectionView.ItemsLayout>
             <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
         </CollectionView.ItemsLayout>
@@ -15,6 +23,7 @@
             <DataTemplate>
                 <StackLayout>
                     <Label Grid.Row="0" Text="{Binding FileName}" FontSize="20" />
+                    <Label Grid.Row="1" Text="{Binding Date}" FontSize="16" TextColor="Silver" />
                     <Label Grid.Row="1" Text="{Binding Text}" FontSize="16" />
                 </StackLayout>
             </DataTemplate>
