@@ -18,6 +18,11 @@
             Title="Note"
             ContentTemplate="{DataTemplate views:NotePage}"
             Route="NotePage" />
+
+        <ShellContent
+            Title="All notes"
+            ContentTemplate="{DataTemplate views:AllNotesPage}"
+            Route="AllNotesPage" />
     </TabBar>
 
 

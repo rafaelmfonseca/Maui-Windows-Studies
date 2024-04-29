@@ -1,35 +1,59 @@
+using Maui_Windows_Studies.Models;
+using Maui_Windows_Studies.Shared;
+
 namespace Maui_Windows_Studies.Views;
 
+[QueryProperty(nameof(FileName), nameof(FileName))]
 public partial class NotePage : ContentPage
 {
-	string _fileName = Path.Combine(
-		Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-		"studies",
-		"note.txt");
+	public string FileName
+	{
+		set => LoadNote(value);
+	}
 
 	public NotePage()
 	{
 		InitializeComponent();
 
-		if (File.Exists(_fileName))
-        {
-            TextEditor.Text = File.ReadAllText(_fileName);
-        }
-	}
+		string fileName = Path.Combine(Constants.NotesFolder, $"{Path.GetRandomFileName()}.notes.txt");
 
-	private void Save_Clicked(object send, EventArgs e)
-	{
-		Directory.CreateDirectory(Path.GetDirectoryName(_fileName)!);
-		File.WriteAllText(_fileName, TextEditor.Text);
-	}
+		LoadNote(fileName);
+    }
 
-    private void Delete_Clicked(object send, EventArgs e)
+	private void LoadNote(string fileName)
     {
-		if (File.Exists(_fileName))
+		var note = new Note()
 		{
-			File.Delete(_fileName);
+			FileName = fileName
+		};
+
+		if (File.Exists(fileName))
+		{
+			note.Text = File.ReadAllText(fileName);
+			note.Date = File.GetCreationTime(fileName);
 		}
 
-        TextEditor.Text = string.Empty;
+		BindingContext = note;
+    }
+
+	private async void Save_Clicked(object send, EventArgs e)
+	{
+		if (BindingContext is Note note)
+		{
+			Directory.CreateDirectory(Constants.NotesFolder);
+			File.WriteAllText(note.FileName, note.Text);
+		}
+
+		await Shell.Current.GoToAsync("..");
+	}
+
+    private async void Delete_Clicked(object send, EventArgs e)
+    {
+		if (BindingContext is Note note && File.Exists(note.FileName))
+		{
+			File.Delete(note.FileName);
+		}
+
+		await Shell.Current.GoToAsync("..");
     }
 }
