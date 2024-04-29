@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui_Windows_Studies.Views.AboutPage"
+             xmlns:models="clr-namespace:Maui_Windows_Studies.Models"
+             Title="AboutPage">
+    <ContentPage.BindingContext>
+        <models:About />
+    </ContentPage.BindingContext>
+    <VerticalStackLayout>
+        <Label Text="{Binding Title}" FontSize="22" FontAttributes="Bold" />
+        <Label Text="{Binding Description}" />
+        <Label Text="{Binding Version}">
+            <Label.FontSize>22</Label.FontSize>
+            <Label.FontAttributes>Bold</Label.FontAttributes>
+        </Label>
+        <Button Clicked="Button_Clicked">
+            <Button.Text>More info</Button.Text>
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="TextColor" Value="White" />
+                    <Setter Property="BackgroundColor" Value="Transparent" />
+                    <Setter Property="FontFamily" Value="OpenSansRegular"/>
+                    <Setter Property="BorderWidth" Value="1"/>
+                    <Setter Property="BorderColor" Value="White"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="CornerRadius" Value="8"/>
+                    <Setter Property="Padding" Value="14,10"/>
+                </Style>
+            </Button.Style>
+        </Button>
+    </VerticalStackLayout>
+</ContentPage>
