@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui_Layouts_Studies.MainPage">
+    <StackLayout>
+        <StackLayout>
+            <Label Text="Hello world!"
+                   FontSize="40"
+                   BackgroundColor="Silver"
+                   WidthRequest="300"
+                   HeightRequest="300"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center" />
+        </StackLayout>
+        <HorizontalStackLayout Spacing="25" Margin="0,0,0,10">
+            <Label BackgroundColor="Orange">Orange</Label>
+            <Label BackgroundColor="Yellow">Yellow</Label>
+            <Label BackgroundColor="Green">Green</Label>
+            <Label BackgroundColor="Blue">Blue</Label>
+        </HorizontalStackLayout>
+        <VerticalStackLayout Spacing="25">
+            <Label BackgroundColor="Orange">Orange</Label>
+            <Label BackgroundColor="Yellow">Yellow</Label>
+            <Label BackgroundColor="Green">Green</Label>
+            <Label BackgroundColor="Blue">Blue</Label>
+        </VerticalStackLayout>
+    </StackLayout>
+
+</ContentPage>
